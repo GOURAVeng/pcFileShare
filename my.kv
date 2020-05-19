@@ -1,0 +1,113 @@
+WindowManager:
+    WelcomePage:
+    LoginPage:
+    Engine:
+ 
+<WelcomePage>:
+    name:"First"
+    GridLayout:
+        rows:2
+        Label:
+            text:"Welcome To File Sharing System"
+            font_size:32
+            size_hint_y:8
+        Button:
+            text:"Next"
+            sint_hint_y:None
+            on_release:app.root.current="Second"    
+
+
+<LoginPage>:
+    user:username
+    pswd:password
+    name:"Second"
+    demo:list_view_tab
+    demo1:icon_view_tab
+    #maingrid
+    GridLayout:
+        cols:1
+        rows:4
+        #text
+        GridLayout:
+            cols:1
+            size_hint:1,.2
+            
+            Label:
+                font_size:20
+                text:"Choose folder to share:"
+        #file chooser
+        GridLayout:
+            cols:1
+            size_hint:1,2
+            TabbedPanel:
+                tab_pos: "top_right"
+                default_tab_text: "List View"
+                default_tab_content: list_view_tab
+
+                TabbedPanelHeader:
+                    text: 'Icon View'
+                    content: icon_view_tab
+
+                FileChooserListView:
+                    id: list_view_tab
+
+                FileChooserIconView:
+                    id: icon_view_tab
+                    show_hidden: True
+        #login box
+        GridLayout:
+            cols:2
+            rows:2
+            Label:
+                font_size:32
+                text:"UserName"
+            TextInput:
+                halign:"center"  
+                height: 30
+                id:username
+                multiline:False
+                font_size:32
+            Label:
+                font_size:32
+                text:"Password"
+            TextInput:
+                id:password
+                halign:"center" 
+                font_size:32
+                multiline:False
+                height:30
+        #submit button
+        GridLayout: 
+            cols:1   
+            size_hint:1,.2
+            Button:
+                text:"Submit"
+                on_press:
+                    #if input fields are empty then it stays on this page
+                    app.root.current="Second" if username.text=='' or password.text=='' else "Third"
+                    root.Temp()
+                    # app.root.current="Second" if username.text=='' or password.text=='' else "Third"
+            
+
+<Engine>:
+    name:"Third"
+    id:eng
+    result:url
+    GridLayout:
+        rows:3
+        Button:
+            font_size:32
+            text:"Get URL"
+            on_press:
+            #to call ip funtion
+                root.ip()
+        Label:
+            font_size:32
+            id:url
+            text:"Press Get URL"
+        Button:
+            font_size:32
+            text:"Stop Sharing"
+            #to call kill funtion so that server can close
+            on_press:eng.kill()
+    
