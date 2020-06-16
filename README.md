@@ -1,4 +1,4 @@
-# Sharer
+# shareByPc
 A direct pc to pc and mobile file sharing software<br />
 <br />
 Note:- Sharer and receiver should be connected to same wifi<br />
